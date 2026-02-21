@@ -3,6 +3,9 @@
   connection: local
   become: true
 
+  vars:
+    username: "crisber"
+
   tasks:
   - name: install packages
     package:
@@ -18,10 +21,38 @@
   - name: copy xmonad config files
     copy:
       src: files/xmonad/
-      dest: /home/crisber/.config/xmonad/
+      dest: /home/{{ username }}/.config/xmonad/
 
   - name: copy ranger config files
     copy:
       src: files/ranger/
-      dest: /home/crisber/.config/ranger/
+      dest: /home/{{ username }}/.config/ranger/
       mode: preserve
+
+  - name: install neovim lastest stable
+    block:
+    - name: create nvim dir in opt
+      file:
+        path: /opt/nvim
+        state: directory
+        mode: "0755"
+
+    - name: download nvim appimage
+      get_url: 
+        url: https://github.com/neovim/neovim/releases/download/v0.11.6/nvim-linux-x86_64.appimage
+        dest: /opt/nvim/nvim-0.11.6-linux-x86_64.appimage
+        mode: "0755"
+
+    - name: symblink to /usr/local/bin 
+      file:
+        src: /opt/nvim/nvim-0.11.6-linux-x86_64.appimage
+        dest: /usr/local/bin/nvim
+        state: link
+        force: true
+
+    - name: copy nvim config files
+      copy:
+        src: files/nvim/
+        dest: /home/{{ username }}/.config/nvim
+
+
