@@ -19,12 +19,19 @@
     copy:
       src: files/xmonad/
       dest: "/home/crisber/.config/xmonad/"
+      owner: "crisber"
+      group: "crisber"
+      mode: "0644"
+      directory_mode: "0755"
 
   - name: copy ranger config files
     copy:
       src: files/ranger/
       dest: "/home/crisber/.config/ranger/"
-      mode: preserve
+      owner: "crisber"
+      group: "crisber"
+      mode: "0644"
+      directory_mode: "0755"
 
   - name: install neovim lastest stable
     block:
@@ -51,8 +58,8 @@
       copy:
         src: files/nvim/
         dest: "/home/crisber/.config/nvim"
-        # owner: "{{ lookup('env', 'USER') }}"
-        # group: "{{ lookup('env', 'USER') }}"
+        owner: "crisber"
+        group: "crisber"
         mode: "0644"
         directory_mode: "0755"
 
