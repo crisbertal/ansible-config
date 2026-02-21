@@ -51,8 +51,8 @@
       copy:
         src: files/nvim/
         dest: /home/{{ lookup('env', 'USER') }}/.config/nvim
-        # owner: "{{ lookup('env', 'USER') }}"
-        # group: "{{ lookup('env', 'USER') }}"
+        owner: "{{ lookup('env', 'USER') }}"
+        group: "{{ lookup('env', 'USER') }}"
         mode: "0644"
         directory_mode: "0755"
 
