@@ -74,6 +74,7 @@
       unarchive:
         src: "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/JetBrainsMono.zip"
         dest: "{{ lookup('env', 'HOME') }}/.local/share/fonts"
+        remote_src: yes
 
     - name: rebuild font cache
       command: "fc-cache -f"
