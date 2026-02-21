@@ -18,12 +18,12 @@
   - name: copy xmonad config files
     copy:
       src: files/xmonad/
-      dest: "{{ lookup('env', 'HOME') }}/.config/xmonad/"
+      dest: "/home/crisber/.config/xmonad/"
 
   - name: copy ranger config files
     copy:
       src: files/ranger/
-      dest: "{{ lookup('env', 'HOME') }}/.config/ranger/"
+      dest: "/home/crisber/.config/ranger/"
       mode: preserve
 
   - name: install neovim lastest stable
@@ -50,7 +50,7 @@
     - name: copy nvim config files
       copy:
         src: files/nvim/
-        dest: "{{ lookup('env', 'HOME') }}/.config/nvim"
+        dest: "/home/crisber/.config/nvim"
         # owner: "{{ lookup('env', 'USER') }}"
         # group: "{{ lookup('env', 'USER') }}"
         mode: "0644"
@@ -60,12 +60,12 @@
     block:
     - name: ensure fonts directory
       file:
-        path: "{{ lookup('env', 'HOME') }}/.local/share/fonts"
+        path: "/home/crisber/.local/share/fonts"
         state: directory
 
     - name: firacode exists
       find: 
-        paths: "{{ lookup('env', 'HOME') }}/.local/share/fonts"
+        paths: "/home/crisber/.local/share/fonts"
         patterns: "Jet*Brains*Mono*Nerd*Font"
       register: jetbrains_fonts
 
@@ -73,7 +73,7 @@
       when: jetbrains_fonts.matched == 0
       unarchive:
         src: "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/JetBrainsMono.zip"
-        dest: "{{ lookup('env', 'HOME') }}/.local/share/fonts"
+        dest: "/home/crisber/.local/share/fonts"
         remote_src: yes
 
     - name: rebuild font cache
