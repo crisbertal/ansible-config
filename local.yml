@@ -1,0 +1,16 @@
+---
+- hosts: localhost
+  connection: local
+  become: true
+
+  tasks:
+    - name: install packages
+      package:
+        - xmonad
+        - xmobar
+        - vim
+
+    - name: copy xmonad config files
+      copy:
+        src: files/xmonad/
+        dest: /home/crisber/.xmonad/
