@@ -3,9 +3,6 @@
   connection: local
   become: true
 
-  vars:
-    username: "crisber"
-
   tasks:
   - name: install packages
     package:
@@ -21,12 +18,12 @@
   - name: copy xmonad config files
     copy:
       src: files/xmonad/
-      dest: /home/{{ username }}/.config/xmonad/
+      dest: "/home/{{ lookup('env', 'HOME') }}/.config/xmonad/"
 
   - name: copy ranger config files
     copy:
       src: files/ranger/
-      dest: /home/{{ username }}/.config/ranger/
+      dest: "/home/{{ lookup('env', 'HOME') }}/.config/ranger/"
       mode: preserve
 
   - name: install neovim lastest stable
@@ -53,10 +50,33 @@
     - name: copy nvim config files
       copy:
         src: files/nvim/
-        dest: /home/{{ username }}/.config/nvim
-        owner: "{{ username }}"
-        group: "{{ username }}"
+        dest: /home/{{ lookup('env', 'USER') }}/.config/nvim
+        # owner: "{{ lookup('env', 'USER') }}"
+        # group: "{{ lookup('env', 'USER') }}"
         mode: "0644"
         directory_mode: "0755"
+
+  - name: install nerdfonts
+    block:
+    - name: ensure fonts directory
+      file:
+        path: "{{ lookup('env', 'HOME') }}/.local/share/fonts"
+        state: directory
+
+    - name: firacode exists
+      find: 
+        paths: "{{ lookup('env', 'HOME') }}/.local/share/fonts"
+        patterns: "Jet*Brains*Mono*Nerd*Font"
+      register: jetbrains_fonts
+
+    - name: download jet brains mono
+      when: jetbrains_fonts.matched == 0
+      unarchive:
+        src: "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/JetBrainsMono.zip"
+        dest: "{{ lookup('env', 'HOME') }}/.local/share/fonts"
+
+    - name: rebuild font cache
+      command: "fc-cache -f"
+      changed_when: true
 
 
