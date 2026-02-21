@@ -54,6 +54,6 @@
       copy:
         src: files/nvim/
         dest: /home/{{ username }}/.config/nvim
-        mode: "0755"
+        mode: preserve
 
 
