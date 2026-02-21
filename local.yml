@@ -19,3 +19,8 @@
     copy:
       src: files/xmonad/
       dest: /home/crisber/.config/xmonad/
+
+  - name: copy ranger config files
+    copy:
+      src: files/ranger/
+      dest: /home/crisber/.config/ranger/
