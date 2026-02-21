@@ -14,4 +14,4 @@
   - name: copy xmonad config files
     copy:
       src: files/xmonad/
-      dest: /home/crisber/.xmonad/
+      dest: ~/.xmonad/
