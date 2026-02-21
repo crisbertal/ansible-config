@@ -6,9 +6,10 @@
   tasks:
   - name: install packages
     package:
-      - xmonad
-      - xmobar
-      - vim
+      name:
+        - xmonad
+        - xmobar
+        - vim
 
   - name: copy xmonad config files
     copy:
