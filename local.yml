@@ -54,8 +54,8 @@
       copy:
         src: files/nvim/
         dest: /home/{{ username }}/.config/nvim
-        owner: {{ username }}
-        group: {{ username }}
+        owner: "{{ username }}"
+        group: "{{ username }}"
         mode: "0644"
         directory_mode: "0755"
 
