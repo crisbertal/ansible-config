@@ -4,14 +4,13 @@
   become: true
 
   tasks:
+  - name: install packages
+    package:
+      - xmonad
+      - xmobar
+      - vim
 
-    - name: install packages
-      package:
-        - xmonad
-        - xmobar
-        - vim
-
-    - name: copy xmonad config files
-      copy:
-        src: files/xmonad/
-        dest: /home/crisber/.xmonad/
+  - name: copy xmonad config files
+    copy:
+      src: files/xmonad/
+      dest: /home/crisber/.xmonad/
