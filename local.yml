@@ -24,14 +24,21 @@
       mode: "0644"
       directory_mode: "0755"
 
-  - name: copy ranger config files
-    copy:
-      src: files/ranger/
-      dest: "/home/crisber/.config/ranger/"
-      owner: "crisber"
-      group: "crisber"
-      mode: "0644"
-      directory_mode: "0755"
+  - name: ranger config files
+    block:
+    - name: copy ranger config files
+      copy:
+        src: files/ranger/
+        dest: "/home/crisber/.config/ranger/"
+        owner: "crisber"
+        group: "crisber"
+        mode: "0644"
+        directory_mode: "0755"
+
+    - name: make scope.sh executable
+      file:
+        path: "/home/crisber/.config/ranger/scope.sh"
+        mode: "0755"
 
   - name: install neovim lastest stable
     block:
